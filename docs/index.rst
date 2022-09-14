@@ -15,6 +15,7 @@ Install::
    :caption: Contents:
 
    argparse
+   string
 
 Indices and tables
 ==================
