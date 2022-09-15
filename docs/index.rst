@@ -14,7 +14,8 @@ Install::
    :maxdepth: 2
    :caption: Contents:
 
-   py_kaos_utils
+   argparse
+   string
 
 Indices and tables
 ==================
