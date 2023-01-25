@@ -4,16 +4,16 @@ class TrackChangesMixin:
     Mixin class that tracks changes made to fields specified in Config.fields_to_track.
 
     Example:
-    >>> class MyModel(TrackChangesMixin, Model):
-    >>>    name = CharField()
-    >>>    age = IntegerField()
-    >>>    class Config:
-    >>>        fields_to_track = ['name']
-
-    >>> model = MyModel(name="John", age=30)
-    >>> model.name = "Mark"
-    >>> model.has_field_changed("name") # True
-    >>> model.has_field_changed("age") # False
+        >>> class MyModel(TrackChangesMixin, Model):
+        >>>    name = CharField()
+        >>>    age = IntegerField()
+        >>>    class Config:
+        >>>        fields_to_track = ['name']
+        >>>
+        >>> model = MyModel(name="John", age=30)
+        >>> model.name = "Mark"
+        >>> model.has_field_changed("name") # True
+        >>> model.has_field_changed("age") # False
     """
 
     def __init__(self, *args, **kwargs):
