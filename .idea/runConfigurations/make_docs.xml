@@ -16,11 +16,11 @@
       <option name="IS_IGNORE_MISSING_FILES" value="false" />
       <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
       <ENTRIES>
-        <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
       </ENTRIES>
     </EXTENSION>
     <option name="docutils_input_file" value="$PROJECT_DIR$/docs" />
-    <option name="docutils_output_file" value="$PROJECT_DIR$/docs/_build" />
+    <option name="docutils_output_file" value="$PROJECT_DIR$/docs/_build/html" />
     <option name="docutils_params" value="" />
     <option name="docutils_task" value="html" />
     <option name="docutils_open_in_browser" value="false" />

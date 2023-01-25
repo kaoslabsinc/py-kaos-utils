@@ -16,6 +16,9 @@ Install::
 
    argparse
    string
+   logging
+   mixins
+   pagination
 
 Indices and tables
 ==================

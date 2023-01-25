@@ -5,7 +5,8 @@ def create_initials(s: str) -> str:
     """
     Return the initial letter of each word in `s`, capitalized and strung together
 
-    Example: John Smith -> JS
+    Example:
+        >>> create_initials("John Smith") == "JS"
 
     :param s: String to create initials out of
     :return: Initials of `s`, capitalized
