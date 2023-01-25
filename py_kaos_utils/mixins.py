@@ -47,6 +47,9 @@ class TrackChangesMixin:
         # The field has not been changed if it doesn't have an original value
         return False
 
+    def get_original_value(self, field_name):
+        return self.__original_values[field_name]
+
 
 __all__ = (
     'TrackChangesMixin',
