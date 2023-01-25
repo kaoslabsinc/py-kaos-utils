@@ -28,7 +28,10 @@ class TrackChangesMixin:
         if name in self.Config.fields_to_track:
             # Save the original value of the field if it hasn't been saved yet
             if name not in self.__original_values:
-                self.__original_values[name] = getattr(self, name)
+                try:
+                    self.__original_values[name] = getattr(self, name)
+                except AttributeError:
+                    pass
 
         super().__setattr__(name, value)
 
