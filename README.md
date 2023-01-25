@@ -2,6 +2,8 @@
 
 Set of utilities and helpers for rapid development of Python applications
 
+Documentation: https://py-kaos-utils.readthedocs.io/en/release-0.1.0/
+
 ## Development and Testing
 
 ### IDE Setup
