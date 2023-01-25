@@ -12,4 +12,4 @@ def test_paginate_generator(generator, limit):
     pages = list(paginate_generator(generator, limit))
     assert len(pages) == 5 // limit + 1 if limit > 0 else 1
     l = list(range(5))
-    assert pages[0] == l[:limit] if limit >= len(generator) else pages
+    assert pages[0] == l[:limit] if limit > 0 else l
