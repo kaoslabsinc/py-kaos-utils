@@ -4,6 +4,11 @@ from dateutil import parser
 class ArgParseTypes:
     """
     Contains static methods that can be passed to ``argparse.ArgumentParser().add_argument(type=)``
+
+    Example:
+        >>> import argparse
+        >>> parser = argparse.ArgumentParser()
+        >>> parser.add_argument('datetime', type=ArgParseTypes.datetime)
     """
 
     @staticmethod

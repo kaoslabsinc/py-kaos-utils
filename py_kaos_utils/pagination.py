@@ -10,6 +10,11 @@ def paginate_generator(
     """
     Paginate a generator by a given limit (page size).
 
+    Example:
+        >>> g = range(10000)
+        >>> for page in paginate_generator(g, 100):
+        >>>     print(page)
+
     :param generator: the generator to be paginated
     :type generator: Generator[T, None, None]
     :param limit: number of items per page

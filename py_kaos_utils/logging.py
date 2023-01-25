@@ -11,6 +11,11 @@ class ProgressLogger:
     """
     Logs the progress of a process by reporting the percentage of completion at a set number of checkpoints.
 
+    Example:
+        >>> p = ProgressLogger(1000, 10)
+        >>> for count_this_round in [100, 99, 78, 99, 100]:
+        >>>     p.log_progress(count_this_round)
+
     :param count_total: Total number of items to process
     :type count_total: int
     :param checkpoints: Number of checkpoints to report progress at (defaults to 10)
