@@ -11,7 +11,7 @@ Install::
     pip install py-kaos-utils
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    argparse
