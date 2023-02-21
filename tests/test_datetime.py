@@ -70,3 +70,7 @@ class TestDatetimeWrapper:
     def test_dt(self, raw_dt__str, raw_tz_str):
         dtw = DT(raw_dt__str, raw_tz_str)
         assert dtw.dt == dt.datetime(2022, 1, 1, 12, 30, tzinfo=ZoneInfo('US/Pacific'))
+
+    def test_strf(self, raw_dt__str, raw_tz_str):
+        dtw = DT(raw_dt__str, raw_tz_str)
+        assert dtw.strf() == 'Jan 01, 2022 - 12:30 PM PST'
