@@ -6,6 +6,11 @@ import pytest
 from py_kaos_utils.datetime import DT
 
 
+@pytest.fixture
+def raw_tz_str():
+    return 'US/Pacific'
+
+
 class TestBaseDatetimeWrapper:
     @pytest.fixture
     def raw_dt(self):
@@ -14,10 +19,6 @@ class TestBaseDatetimeWrapper:
     @pytest.fixture
     def raw_dt__aware(self):
         return dt.datetime(2022, 1, 1, 15, 30, 0, tzinfo=ZoneInfo('US/Eastern'))
-
-    @pytest.fixture
-    def raw_tz_str(self):
-        return 'US/Pacific'
 
     @pytest.fixture
     def raw_tz_zoneinfo(self):
@@ -55,3 +56,17 @@ class TestBaseDatetimeWrapper:
         dtw1 = DT(raw_dt, raw_tz_str)
         dtw2 = DT(raw_dt__aware, raw_tz_str)
         assert dtw1.dt == dtw2.dt
+
+
+class TestDatetimeWrapper:
+    @pytest.fixture
+    def raw_dt__str(self):
+        return "1 January 2022, 3:30pm EST"
+
+    def test_str_parsed(self, raw_dt__str):
+        dtw = DT(raw_dt__str)
+        assert dtw._dt == dt.datetime(2022, 1, 1, 15, 30, tzinfo=ZoneInfo('US/Eastern'))
+
+    def test_dt(self, raw_dt__str, raw_tz_str):
+        dtw = DT(raw_dt__str, raw_tz_str)
+        assert dtw.dt == dt.datetime(2022, 1, 1, 12, 30, tzinfo=ZoneInfo('US/Pacific'))
