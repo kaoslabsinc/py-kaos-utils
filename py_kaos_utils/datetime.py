@@ -31,7 +31,16 @@ class BaseDatetimeWrapper:
 
 
 class DatetimeWrapper(BaseDatetimeWrapper):
-    raw_datetime: dt.datetime | str
+    tzinfos = {
+        'PST': ZoneInfo('US/Pacific'),
+        'PDT': ZoneInfo('US/Pacific'),
+        'EST': ZoneInfo('US/Eastern'),
+        'EDT': ZoneInfo('US/Eastern'),
+        'MST': ZoneInfo('US/Mountain'),
+        'MDT': ZoneInfo('US/Mountain'),
+        'CST': ZoneInfo('US/Central'),
+        'CDT': ZoneInfo('US/Central'),
+    }
 
     @property
     def parse(self):
@@ -42,7 +51,7 @@ class DatetimeWrapper(BaseDatetimeWrapper):
                  raw_dt: str | dt.datetime,
                  raw_tz: Optional[str | ZoneInfo] = None):
         if not isinstance(raw_dt, dt.date):
-            raw_dt = self.parse(raw_dt)
+            raw_dt = self.parse(raw_dt, tzinfos=self.tzinfos)
         super().__init__(raw_dt, raw_tz)
 
     def strf(self, fmt: str = '%b %d, %Y - %I:%M %p %Z'):
