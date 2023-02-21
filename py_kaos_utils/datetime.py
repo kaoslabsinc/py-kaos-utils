@@ -1,55 +1,36 @@
 import datetime as dt
 import zoneinfo
 from typing import Optional
+from zoneinfo import ZoneInfo
 
 
-class DatetimeWrapperInterface:
-    def _format(self, fmt: str):
-        raise NotImplementedError
-
-    def format(self):
-        raise NotImplementedError
-
-
-class BaseDatetimeWrapper(DatetimeWrapperInterface):
-    def __init__(self, raw_datetime, timezone_str=None):
-        self.raw_datetime: dt.datetime = raw_datetime
-        self.timezone_str: Optional[str] = timezone_str
+class BaseDatetimeWrapper:
+    def __init__(self,
+                 raw_dt: dt.datetime,
+                 raw_tz: Optional[str | ZoneInfo] = None):
+        self._tz: Optional[ZoneInfo]
+        self._dt: dt.datetime = raw_dt
+        self.tz = raw_tz
 
     @property
-    def zoneinfo(self):
-        return self.timezone_str and zoneinfo.ZoneInfo(self.timezone_str)
+    def tz(self) -> Optional[ZoneInfo]:
+        return self._tz
+
+    @tz.setter
+    def tz(self, value: str | ZoneInfo | None):
+        if value is None:
+            self._tz = None
+        elif isinstance(value, ZoneInfo):
+            self._tz = value
+        else:
+            self._tz = zoneinfo.ZoneInfo(value)
 
     @property
-    def datetime(self):
-        return self.raw_datetime.astimezone(self.zoneinfo) if self.zoneinfo else self.raw_datetime
-
-    def _format(self, fmt: str):
-        return self.datetime.strftime(fmt)
+    def dt(self):
+        return self._dt.astimezone(self.tz) if self.tz else self._dt
 
 
-class STRFFormatsMixin(DatetimeWrapperInterface):
-    local = '%c'
-    main = '%b %d, %Y - %I:%M %p %Z'
-    f1 = '%Y-%m-%d %I:%M %p %Z'
-
-    def format(self):
-        return self.format_main()
-
-    def format_local(self):
-        return self._format(self.local)
-
-    def format_main(self):
-        return self._format(self.main)
-
-    def format_f1(self):
-        return self._format(self.f1)
-
-
-class DatetimeWrapper(
-    BaseDatetimeWrapper,
-    STRFFormatsMixin,
-):
+class DatetimeWrapper(BaseDatetimeWrapper):
     raw_datetime: dt.datetime | str
 
     @property
@@ -57,17 +38,21 @@ class DatetimeWrapper(
         from dateutil import parser
         return parser.parse
 
-    def __init__(self, raw_datetime, timezone_str=None):
-        if not isinstance(raw_datetime, dt.date):
-            self.raw_datetime = self.parse(raw_datetime)
-        super().__init__(raw_datetime, timezone_str)
+    def __init__(self,
+                 raw_dt: str | dt.datetime,
+                 raw_tz: Optional[str | ZoneInfo] = None):
+        if not isinstance(raw_dt, dt.date):
+            raw_dt = self.parse(raw_dt)
+        super().__init__(raw_dt, raw_tz)
+
+    def strf(self, fmt: str = '%b %d, %Y - %I:%M %p %Z'):
+        return self.dt.strftime(fmt)
 
 
 DT = DatetimeWrapper
 
 __all__ = (
     'BaseDatetimeWrapper',
-    'STRFFormatsMixin',
     'DatetimeWrapper',
     'DT',
 )
